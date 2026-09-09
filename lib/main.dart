@@ -35,10 +35,12 @@ class _AgendamentoEventoTelaState extends State<AgendamentosEventoTela> {
   static final DateTime _datapadrao = DateTime.now();
   static const TimeOfDay _horarioPadrao = TimeOfDay(hour: 19, minute: 0);
   static const String _tipoPadrao = 'Aniversario';
+  static const double _convidaoPadrao = 50.0;
 
   late DateTime _dataSelecionada;
   late TimeOfDay _horarioSelecionado;
   late String _tipoEventoSelecionado;
+  late double _quantidadeConvidados;
   
   @override
   void initstate() {
@@ -46,6 +48,7 @@ class _AgendamentoEventoTelaState extends State<AgendamentosEventoTela> {
       _dataSelecionada = _datapadrao;
       _horarioSelecionado = _horarioPadrao;
       _tipoEventoSelecionado =_tipoPadrao;
+      _quantidadeConvidados = _convidaoPadrao;
     });
     print('[DEBUG] Formulario resetado para os valores padrão.');
   }
@@ -137,6 +140,36 @@ class _AgendamentoEventoTelaState extends State<AgendamentosEventoTela> {
                 }
               },
             )
+            const Divider(height: 32),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text (
+                  'Quantidade de Convidados',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ), // Text
+                Text(
+                  '${_quantidadeConvidados.round()} pessoas',
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ]
+            ), 
+            Slider(
+              value: quantidadeConvidados,
+              min: 10,
+              max: 500,
+              divisions: 49,
+              label: _quantidadeConvidados.round().toString(),
+              onChanged: (novoValor) {
+                setState(() {
+                  quantidadeConvidados = novoValor;
+                });
+                print(
+                  '[DEBUG - Slider] Quantidade de convidados: ${novoValor.round()}',
+                ); 
+              },
+            ),
             const Divider(height: 32),
           ],
         ),
